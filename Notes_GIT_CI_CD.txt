@@ -14,6 +14,14 @@ GIT Repo per Service
   + GIT Repo for payments
   + GIT Repo for orders
 
+GitHub User Name: WillLinker, IReallyNeedToRetire$2021
+  Personel Access Token (PAT):  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
+
+
+  Note: Setup GIT Global credential helper:
+    git config --global credential.helper store
+    echo url=https://WillLinker@github.com | git credential reject
+    Enter my PAT when prompted for password:  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
 
 We are using "GIT Mono Repo for entire project"
 Folder: ticketings
@@ -24,3 +32,28 @@ vi .gitingore
 
 git add .
 git commit -m "Initial Commit"
+
+On GitHub create new Repo: ticketings
+   Repo Link:  https://github.com/WillLinker/ticketing.git
+
+git remote add origin https://github.com/WillLinker/ticketing.git
+git push -u origin master
+
+GitHub Action to run test when we pull code.
+--------------------------------------------
+On GitHub select "Action" from the menu bar for my repo.
+Select "Simple Workflow"
+rename "blank.yml" to "test.yml" and empty the file.
+     name: tests
+     
+     on:
+       pull_request
+    
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/check@v2
+          - run: cd auth && npm install && npm run test:ci 
+
+Notes script "test:ci" will run test one time and exit.
