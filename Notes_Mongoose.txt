@@ -1,0 +1,8 @@
+Install Mongoose to access MongoDB
+  npm install mongoose
+
+Use "update-if-current" to implement versioning in MongoDB
+  https://www.npmjs.com/package/mongoose-update-if-current
+
+  npm install mongoose-update-if-current
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';

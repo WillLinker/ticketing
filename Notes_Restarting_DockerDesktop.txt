@@ -1,0 +1,23 @@
+# After Kubernetes is started.
+# Creating JWT Secret
+kubectl create secret generic jwt-secret --from-literal=jwt=asdf
+#
+# Installing ingress-nginx:  https://kubernetes.github.io/ingress-nginx/deploy/
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.0/deploy/static/provider/cloud/deploy.yaml
+#
+# Make sure the pods are running.
+kubectl get pods --namespace=ingress-nginx
+NAME                                      READY   STATUS      RESTARTS   AGE
+ingress-nginx-admission-create--1-vspk7   0/1     Completed   0          35s
+ingress-nginx-admission-patch--1-lh56w    0/1     Completed   1          35s
+ingress-nginx-controller-54bfb9bb-58xnd   1/1     Running     0          35s
+#
+# make sure the LoadBalancer is running (EXTERNAL-IP) should say localhost!
+kubectl get services -n ingress-nginx                                                                                            
+NAME                                 TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+ingress-nginx-controller             LoadBalancer   10.98.189.97    localhost     80:30812/TCP,443:30041/TCP   41s
+ingress-nginx-controller-admission   ClusterIP      10.99.248.225   <none>        443/TCP                      41s
+#
+kubectl get services -n ingress-nginx                                                                                            \n
+kubectl get pods --namespace=ingress-nginx
+kubectl logs ingress-nginx-controller-54bfb9bb-58xnd --namespace=ingress-nginx

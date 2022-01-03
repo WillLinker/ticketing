@@ -1,0 +1,31 @@
+https://kubernetes.github.io/ingress-nginx/deploy/#docker-desktop
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.0/deploy/static/provider/cloud/deploy.yaml
+
+kubectl get pods --namespace=ingress-nginx
+
+kubectl get namespace
+
+kubectl get services -n ingress-nginx
+NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+ingress-nginx-controller             LoadBalancer   10.108.24.150    localhost     80:31089/TCP,443:31924/TCP   7d
+ingress-nginx-controller-admission   ClusterIP      10.106.246.161   <none>        443/TCP                      7d
+
+
+http://ingress-nginx-controller.ingress-nginx-svc.local
+
+---------------------------------------------------------------------------------
+
+JWT:
+====
+    https://www.npmjs.com/package/jsonwebtoken
+npm install jsonwebtoken @types/jsonwebtoken
+
+Tool to validate a JWT:  https://jwt.io
+
+Store the JWT key in Kubernetes as a "Secret", it ends up being in an Environment Variable.
+
+Creating and Accessing a Secret
+===============================
+kubectl create secret generic jwt-secret --from-literal=jwt=asdf
+                        type    name                    key|value of secret|
+---------------------------------------------------------------------------------

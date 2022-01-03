@@ -1,0 +1,26 @@
+GIT Mono Repo for entire project
+  + auth
+  + client
+  + expiration
+  + tickets
+  + payments
+  + orders
+
+GIT Repo per Service
+  + GIT Repo for auth
+  + GIT Repo for client
+  + GIT Repo for expiration
+  + GIT Repo for tickets
+  + GIT Repo for payments
+  + GIT Repo for orders
+
+
+We are using "GIT Mono Repo for entire project"
+Folder: ticketings
+git init
+vi .gitingore
+   node_modules
+   .DS_Store           <----- Only required on MacOS
+
+git add .
+git commit -m "Initial Commit"

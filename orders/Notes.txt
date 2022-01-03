@@ -1,0 +1,27 @@
+Type 'Document<any, any>' is not assignable Error
+In the upcoming lecture, we will be writing some tests and then running the test suite to ensure they are passing.
+
+You will likely end up with this TS error in your terminal along with a failed test:
+
+   src/models/ticket.ts:47:5 - error TS2322: Type 'Document<any, any>' is not assignable to type 'Condition<LeanDocument<TicketDoc>> | undefined'.
+
+      Type 'Document<any, any>' is missing the following properties from type 'LeanDocument<TicketDoc>': title, price, isReserved
+
+To suppress this error, find the following line in the existingOrder function of models/ticket.ts:
+
+    ticket: this,
+Change it to:
+
+    ticket: this as any,
+Complete function for context:
+
+  const existingOrder = await Order.findOne({
+    ticket: this as any,
+    status: {
+      $in: [
+        OrderStatus.Created,
+        OrderStatus.AwaitingPayment,
+        OrderStatus.Complete,
+      ],
+    },
+  });

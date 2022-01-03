@@ -1,0 +1,132 @@
+https://www.typescriptlang.org/docs/handbook/classes.html#readonly-modifier
+
+
+https://dukeenergy.udemy.com/course/microservices-with-node-js-and-react/learn/lecture/19120528#overview
+
+In "auth"
+npm install typescript ts-node-dev express @types/express
+tsc --init
+
+After creating the shaffold.yaml file run 
+   auth> skaffold dev
+
+If you did not see your server restart after changing the index.ts file, do the following:
+  - Open the package.json file in the ‘auth’ directory
+    + Find the ‘start’ script
+    + Update the start script to the following:
+        ts-node-dev --poll src/index.ts
+
+When running skaffold dev in the upcoming lecture, you may encounter a warning or error about
+the v1beta1 API version that is being used.  The v1 Ingress API is now required as of 
+Kubernetes v1.22 and the v1beta1 will no longer work.
+
+Only a few very minor changes are needed:
+    https://kubernetes.io/docs/concepts/services-networking/ingress/
+
+Notably, a pathType needs to be added, and how we specify the backend service name and port has changed:
+------------------------------------------------------------------
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: ticketing.dev
+      http:
+        paths:
+          - path: /api/users/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-srv
+                port:
+                  number: 3000
+------------------------------------------------------------------
+We will include a separate v1 Ingress manifest attached to each appropriate lecture 
+throughout the course so that students can refer to the changes.
+
+#
+# Used for validation helpers.
+#
+npm install express-validator
+#
+# Install mongoose for mongoDB
+npm install mongoose
+npm install @types/mongoose
+
+
+Using Cookie-Session to manage our authentication cookie (JWT)
+    https://www.npmjs.com/package/cookie-session
+
+npm install cookie-session @types/cookie-session
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+
+Testing on local system (Terminal)
+==================================
+npm run test 
+-  This will run "Jest"
+   1) start in-memory copy of mongoDB
+   2) start up our express app.
+   3) use "supertest" library to make fake request to the express app.
+      -  https://www.npmjs.com/package/supertest
+   4) Run assertions
+
+npm install --save-dev @types/jest @types/supertest jest ts-jest supertest mongodb-memory-server
+***** "--save-dev" is saying these are for development only.
+***** I changed the Dockerfile to only install prod stuff
+         RUN npm install --only=prod
+
+   In the upcoming lecture (and later with the ticketing, orders and payments services) you may 
+   end up seeing a TS error like this in your test/setup.ts file:
+
+   Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.ts(7017)
+
+   To fix, find the following lines of code in src/test/setup.ts:
+
+      declare global {
+        namespace NodeJS {
+          export interface Global {
+            signin(): Promise<string[]>;
+          }
+        }
+      }
+  change to:
+
+      declare global {
+        var signin: () => Promise<string[]>;
+      }
+
+------- React client using Nextjs -----------------------------------------------------------------
+
+In the upcoming lecture, we will create our first components and run the Next server. You may see a 
+warning in the terminal or browser console:
+
+  Anonymous arrow functions cause Fast Refresh to not preserve local component state.
+
+Please add a name to your function, for example:
+Before
+   export default () => <div />;
+After
+   const Named = () => <div />;
+   export default Named;
+
+This is a linter warning as of React v17 letting us know that it might be wise to use named exports 
+instead.  You can suppress the warning by refactoring from this:
+
+    export default () => {
+      return <h1>Landing Page</h1>;
+    };
+to this:
+    const Landing = () => {
+      return <h1>Landing Page</h1>;
+    };
+    export default Landing;
+
+The warning will come up a few more times in this project (and throughout the course) when creating 
+components and can be handled similarly.
+
+npm install react react-dom next

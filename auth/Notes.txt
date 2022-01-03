@@ -1,0 +1,9 @@
+*
+* INstall my new common npm package
+*
+cd auth
+npm install @wmltickets/common
+*
+* to pickup updates to the common package
+*
+npm update @wmltickets/common
