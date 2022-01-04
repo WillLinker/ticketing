@@ -38,7 +38,7 @@ test('Returns all orders for a user.', async () => {
 
   const ticketId = new mongoose.Types.ObjectId();
   const response = await request(app).get('/api/orders').set('Cookie', userTwo).send({ }).expect(200);
-  console.log(response.body);
+  //console.log(response.body);
   expect(response.body.length).toEqual(2);
   expect(response.body[0].id = order1.id);
   expect(response.body[0].ticket.id = ticket1.id);
@@ -47,7 +47,7 @@ test('Returns all orders for a user.', async () => {
   
   for (let index = 0; index < response.body.length; index++) {
     let data = response.body[index];
-    console.log(`[orders] Order: ${data.id}, Ticket: ${data.ticket.id} Title: ${data.ticket.title},`);
+    //console.log(`[orders] Order: ${data.id}, Ticket: ${data.ticket.id} Title: ${data.ticket.title},`);
   }
 });
 

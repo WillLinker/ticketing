@@ -32,7 +32,7 @@ test('Fetch a order for a user.', async () => {
   expect(fetchedOrder.body.ticket.id = ticket1.id);
   
   let data = fetchedOrder.body;
-  console.log(`[fetched] Order: ${data.id}, Ticket: ${data.ticket.id} Title: ${data.ticket.title},`);
+  //console.log(`[fetched] Order: ${data.id}, Ticket: ${data.ticket.id} Title: ${data.ticket.title},`);
 
 });
 

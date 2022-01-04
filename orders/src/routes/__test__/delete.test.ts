@@ -29,10 +29,10 @@ test('delete order for a user.', async () => {
   expect(deleteOrder.body.ticket).toBeUndefined();
   
   let data = deleteOrder.body;
-  console.log(`[delete] Order: ${data.id}, Status: ${data.status}`);
+  //console.log(`[delete] Order: ${data.id}, Status: ${data.status}`);
 
   const cancelledOrder = await request(app).get(`/api/orders/${order1.id}`).set('Cookie', userOne).send({ }).expect(200);
-  console.log(cancelledOrder.body);
+  //console.log(cancelledOrder.body);
   expect(cancelledOrder.body.status).toEqual(OrderStatus.Cancelled);
  
 });
