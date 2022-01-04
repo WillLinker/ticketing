@@ -14,8 +14,7 @@ GIT Repo per Service
   + GIT Repo for payments
   + GIT Repo for orders
 
-GitHub User Name: WillLinker, IReallyNeedToRetire$2021
-  Personel Access Token (PAT):  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
+
 
 Note:  ~/.gitconfig 
 
