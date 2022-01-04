@@ -33,6 +33,7 @@ beforeEach( async () => {
 
 
 afterAll( async () => {
+  jest.setTimeout(10000);  // give it a little times to shutdown
   await mongo.stop();
   await mongoose.connection.close();
 });

@@ -2,8 +2,9 @@ name: tests-orders
 
 on:
   pull_request:
-    path:
+    paths:
       - 'orders/**'
+#       '!orders/docs/**'     unless it is in the docs folder
   
 jobs:
   build:
