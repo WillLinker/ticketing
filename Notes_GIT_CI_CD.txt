@@ -14,14 +14,9 @@ GIT Repo per Service
   + GIT Repo for payments
   + GIT Repo for orders
 
-GitHub User Name: WillLinker, IReallyNeedToRetire$2021
-  Personel Access Token (PAT):  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
 
 
-  Note: Setup GIT Global credential helper:
-    git config --global credential.helper store
-    echo url=https://WillLinker@github.com | git credential reject
-    Enter my PAT when prompted for password:  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
+Note:  ~/.gitconfig 
 
 We are using "GIT Mono Repo for entire project"
 Folder: ticketings
@@ -53,7 +48,34 @@ rename "blank.yml" to "test.yml" and empty the file.
       build:
         runs-on: ubuntu-latest
         steps:
-          - uses: actions/check@v2
+          - uses: actions/checkout@v2
           - run: cd auth && npm install && npm run test:ci 
 
 Notes script "test:ci" will run test one time and exit.
+
+git status
+git add . 
+git commit -m "add test script"
+git pull origin master
+git push origin master
+
+####
+Test the Workflow
+=================
+Change auth service change the index.ts, add console.log('Starting up....'); 
+Commit to new branch
+git checkout -b branch0002
+git add . 
+git commit -m "add startup message"
+git push origin branch0002
+
+
+Now back on github.com
+  - In the ticketing repo
+  - Click "Pull Request" in the nav bar
+  - Click the "New Pull Request" button
+
+  - base:master <- compare: branch0002    (Select the branch from the drop down)
+  - Click "Create Pull Request"
+  - Add a commit about the pull and Click "Create Pull Request"
+
